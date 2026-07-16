@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>33m² 임대인 도구함</title>
+<style>
+  :root {
+    --purple: #7c3aed;
+    --purple-dark: #6d28d9;
+    --purple-light: #f3eeff;
+    --ink: #1f2430;
+    --ink-soft: #5b6474;
+    --bg: #faf9fc;
+    --card: #ffffff;
+    --line: #e8e5f0;
+    --green: #16a34a;
+    --amber: #b45309;
+    --red: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 60px; }
+
+  /* ── 헤더 ── */
+  header { text-align: center; padding: 18px 0 30px; }
+  .logo {
+    display: inline-block;
+    font-weight: 800; font-size: 15px; letter-spacing: 1px;
+    color: var(--purple);
+    border: 2px solid var(--purple);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 16px;
+  }
+  header h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  header h1 .accent { color: var(--purple); }
+  header p { color: var(--ink-soft); margin-top: 8px; font-size: 15px; }
+
+  /* ── 도구 카드 ── */
+  .cards { display: grid; gap: 14px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 20px;
+    box-shadow: 0 1px 4px rgba(31, 36, 48, 0.05);
+  }
+  .card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .card-emoji { font-size: 26px; }
+  .card h2 { font-size: 18px; font-weight: 700; flex: 1; }
+  .badge {
+    font-size: 12px; font-weight: 700;
+    padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge.live { background: #e8f7ee; color: var(--green); }
+  .badge.soon { background: #fdf3e3; color: var(--amber); }
+  .badge.guide { background: var(--purple-light); color: var(--purple); }
+  .card p { color: var(--ink-soft); font-size: 14.5px; margin-bottom: 14px; }
+  .card .hint { font-size: 13px; color: #8a93a5; margin-top: -8px; margin-bottom: 14px; }
+  .btn {
+    display: block; width: 100%;
+    text-align: center; text-decoration: none;
+    font-size: 15.5px; font-weight: 700;
+    padding: 13px 16px; border-radius: 12px;
+    border: none; cursor: pointer;
+  }
+  .btn.primary { background: var(--purple); color: #fff; }
+  .btn.primary:active { background: var(--purple-dark); }
+  .btn.disabled { background: #eceaf2; color: #a3a3b5; cursor: default; pointer-events: none; }
+  .btn.outline { background: #fff; color: var(--purple); border: 2px solid var(--purple); }
+
+  /* ── 방 복사하기 가이드 ── */
+  .section-title { margin: 46px 0 6px; font-size: 21px; font-weight: 800; text-align: center; }
+  .section-sub { text-align: center; color: var(--ink-soft); font-size: 14.5px; margin-bottom: 20px; }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .step-num {
+    width: 26px; height: 26px; flex: none;
+    background: var(--purple); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+  }
+  .step h3 { font-size: 16.5px; font-weight: 700; }
+  .step > p { color: var(--ink-soft); font-size: 14px; margin-bottom: 12px; }
+  .step b { color: var(--ink); }
+
+  /* 미니 목업 */
+  .mock {
+    background: #f6f5fa;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .mock-room {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mock-thumb { width: 40px; height: 40px; border-radius: 8px; background: #ded5f5; flex: none; }
+  .mock-room-txt { flex: 1; font-size: 13px; }
+  .mock-room-txt .t1 { font-weight: 700; }
+  .mock-room-txt .t2 { color: #8a93a5; font-size: 12px; }
+  .mock-dots {
+    width: 30px; height: 30px; flex: none;
+    border: 2.5px solid var(--red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: var(--ink); letter-spacing: 1px;
+    writing-mode: vertical-rl; font-size: 13px;
+  }
+  .mock-menu { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .mock-menu div { padding: 11px 16px; font-size: 14px; border-bottom: 1px solid var(--line); }
+  .mock-menu div:last-child { border-bottom: none; }
+  .mock-menu .pick {
+    border: 2.5px solid var(--red); border-radius: 8px;
+    font-weight: 800; color: var(--ink);
+    margin: 4px; padding: 9px 13px;
+  }
+  .mock-menu .danger { color: #a0a7b6; }
+  .mock-tag {
+    display: inline-block; background: var(--purple); color: #fff;
+    font-size: 11.5px; font-weight: 700; border-radius: 999px;
+    padding: 2px 10px; margin-bottom: 8px;
+  }
+  .warn {
+    background: #fef8e7; border: 1px solid #f3e3b3; border-radius: 10px;
+    font-size: 13.5px; padding: 10px 14px; margin-top: 12px; color: #7a5b0e;
+  }
+  .callout {
+    background: var(--purple); color: #fff;
+    border-radius: 16px; padding: 22px 20px;
+    font-size: 15.5px; font-weight: 600; line-height: 1.7;
+    margin-top: 6px;
+  }
+  .callout .small { display: block; font-size: 12.5px; font-weight: 700; opacity: 0.75; margin-bottom: 8px; letter-spacing: 1px; }
+  .path {
+    text-align: center; color: #8a93a5; font-size: 13px; margin-top: 14px;
+  }
+
+  /* ── 내부 도구 ── */
+  .internal {
+    margin-top: 52px;
+    border-top: 2px dashed var(--line);
+    padding-top: 28px;
+  }
+  .internal h2 { font-size: 16px; font-weight: 700; color: var(--ink-soft); margin-bottom: 4px; }
+  .internal .note { font-size: 13px; color: #a0a7b6; margin-bottom: 14px; }
+  .internal table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); border-radius: 12px; overflow: hidden; }
+  .internal th, .internal td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .internal th { background: #f6f5fa; color: var(--ink-soft); font-size: 12.5px; }
+  .internal tr:last-child td { border-bottom: none; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot.g { background: var(--green); } .dot.y { background: #eab308; } .dot.r { background: #9ca3af; }
+
+  footer { text-align: center; color: #a0a7b6; font-size: 12.5px; margin-top: 44px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">33m²</div>
+    <h1>임대인 <span class="accent">도구함</span></h1>
+    <p>방 등록이 쉬워지는 도구를 한 곳에 모았어요.<br>필요한 카드를 눌러 바로 사용하세요.</p>
+  </header>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-emoji">📐</span>
+        <h2>평면도 생성기</h2>
+        <span class="badge live">바로 사용 가능</span>
+      </div>
+      <p>방 링크나 소개 텍스트만 넣으면 우리 방 <b>평면도 이미지(PNG)</b>가 자동으로 만들어져요. 손그림 사진을 찍어 올려도 도면으로 바꿔드립니다.</p>
+      <p class="hint">※ 오랜만에 접속하면 서버가 깨어나느라 30초 정도 걸릴 수 있어요.</p>
+      <a class="btn primary" href="https://floor-plan-generator-ndsn.onrender.com" target="_blank" rel="noopener">평면도 만들러 가기</a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-emoji">✍️</span>
+        <h2>방소개 생성기</h2>
+        <span class="badge soon">준비 중</span>
+      </div>
+      <p>방 링크나 키워드 몇 개만 넣으면 <b>방소개 · 이용 방법 · 교통편 · 추가 설명</b> 네 가지 글의 초안을 자동으로 써드려요. 주변 편의시설(편의점·마트·역)도 지도에서 찾아 함께 넣어드립니다.</p>
+      <a class="btn disabled" href="#">곧 공개됩니다</a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-emoji">📋</span>
+        <h2>방 복사하기 — 30초 추가 등록</h2>
+        <span class="badge guide">가이드</span>
+      </div>
+      <p>방을 하나 더 등록할 때, 처음부터 다시 입력하지 마세요. <b>이미 등록한 방을 복사</b>해서 주소·사진만 바꾸면 끝입니다.</p>
+      <a class="btn outline" href="#copy-guide">3단계 가이드 보기</a>
+    </div>
+
+  </div>
+
+  <!-- ── 방 복사하기 가이드 ── -->
+  <h2 class="section-title" id="copy-guide">방 <span style="color:var(--purple)">하나 더</span> 등록, 새로 안 쓰셔도 됩니다</h2>
+  <p class="section-sub">"복사하기"는 방 카드의 점 3개(⋮) 안에 숨어 있어요.</p>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">1</span>
+      <h3>방 관리에서 점 3개 누르기</h3>
+    </div>
+    <p>기존에 등록해둔 방 카드 <b>오른쪽 위 ⋮</b> 를 눌러주세요.</p>
+    <div class="mock">
+      <div class="mock-room">
+        <div class="mock-thumb"></div>
+        <div class="mock-room-txt">
+          <div class="t1">강남역 도보5분 풀옵션</div>
+          <div class="t2">작성 중 · 300,000원 / 1주</div>
+        </div>
+        <div class="mock-dots">⋮</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">2</span>
+      <h3>"복사하기" 선택</h3>
+    </div>
+    <p>아래에서 뜨는 메뉴 중 <b>복사하기</b>를 눌러주세요.</p>
+    <div class="mock">
+      <div class="mock-menu">
+        <div>미리보기</div>
+        <div class="pick">복사하기</div>
+        <div class="danger">삭제하기</div>
+      </div>
+    </div>
+    <div class="warn">⚠️ "삭제하기"와 위치가 가까워요. 헷갈리지 말고 <b>복사하기</b>를 눌러주세요.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">3</span>
+      <h3>주소 · 사진만 바꿔서 저장</h3>
+    </div>
+    <p>기존 방 정보가 그대로 복사돼요. <b>주소, 사진, 가격</b>만 새 방에 맞게 고치고 저장하면 새 방 등록 끝!</p>
+    <div class="mock">
+      <span class="mock-tag">주소만 바꾸면 끝</span>
+      <div class="mock-room">
+        <div class="mock-thumb" style="background:#c7b6f2"></div>
+        <div class="mock-room-txt">
+          <div class="t1">강남역 도보5분 풀옵션 (1)</div>
+          <div class="t2">방금 복사됨</div>
+        </div>
+        <div class="mock-dots" style="border-color:var(--line)">⋮</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="small">왜 이렇게 하는 게 좋을까요</span>
+    새로 등록할 방이 있는데 "복사하기"를 몰라서 처음부터 다시 입력하는 임대인이 많아요.
+    이 3단계만 알면 반복 입력 없이 <b>30초</b>면 됩니다.
+  </div>
+  <p class="path">방 관리 › 방 카드 우측 상단 ⋮ › 복사하기</p>
+
+  <!-- ── 내부 도구 (임대인 공유 시 이 블록 전체 삭제: INTERNAL-START ~ INTERNAL-END) ── -->
+  <!-- INTERNAL-START -->
+  <div class="internal">
+    <h2>팀 내부 도구 현황</h2>
+    <p class="note">아래는 웹사이트가 아닌 내부 작업 도구예요. (임대인 공유용 아님)</p>
+    <table>
+      <tr><th>도구</th><th>하는 일</th><th>상태</th></tr>
+      <tr><td>후기 캡쳐 도구</td><td>방 이용후기를 이미지로 저장</td><td><span class="dot g"></span>동작 확인</td></tr>
+      <tr><td>탭 수집기</td><td>심사 대상 방을 시트 기준으로 한번에 열고 기록</td><td><span class="dot g"></span>운영 중</td></tr>
+      <tr><td>시트 자동심사</td><td>구글시트에서 AI가 방 심사 초안 작성</td><td><span class="dot g"></span>운영 중</td></tr>
+      <tr><td>안내문자 생성 (/sns)</td><td>보류·첫계약·입주·퇴실 표준 문자 자동 작성</td><td><span class="dot g"></span>운영 중</td></tr>
+      <tr><td>전화번호 변환기</td><td>걸려온 번호를 숫자만 추출해 어드민 조회</td><td><span class="dot g"></span>동작 확인</td></tr>
+      <tr><td>공실 발굴 크롤러</td><td>다른 플랫폼 매물에서 신규 임대인 발굴</td><td><span class="dot y"></span>개발 중</td></tr>
+    </table>
+  </div>
+  <!-- INTERNAL-END -->
+
+  <footer>33m² 심사 컨설턴트가 준비한 도구입니다.</footer>
+
+</div>
+</body>
+</html>
